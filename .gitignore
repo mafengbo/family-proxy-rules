@@ -1,0 +1,10 @@
+node_modules/
+private/
+backup/
+runtime/
+*.log
+.DS_Store
+*.plist
+*.sqlite*
+*.db*
+.env*

@@ -1,0 +1,20 @@
+{
+  "version": "2026-10-21",
+  "ai": ["openai.com", "chatgpt.com", "oaistatic.com", "oaiusercontent.com", "anthropic.com", "claude.ai", "claude.com", "x.ai", "grok.com", "gemini.google.com", "generativelanguage.googleapis.com", "ai.google.dev"],
+  "development": ["google.com", "googleapis.com", "gstatic.com", "googleusercontent.com", "github.com", "githubusercontent.com", "githubassets.com"],
+  "media": ["youtube.com", "youtu.be", "googlevideo.com", "ytimg.com", "netflix.com", "nflxvideo.net", "nflximg.net", "nflxso.net", "disneyplus.com"],
+  "social": ["telegram.org", "t.me", "telegra.ph", "telegram.me", "whatsapp.com", "whatsapp.net", "signal.org", "discord.com", "discord.gg", "discordapp.com", "discordapp.net", "x.com", "twitter.com", "twimg.com"],
+  "vendors": [
+    {"name": "家庭Google", "sets": ["google", "google-play"], "direct": false},
+    {"name": "家庭Bing与Copilot", "sets": ["bing"], "direct": false},
+    {"name": "家庭苹果国内", "sets": ["apple-cn", "apple@cn"], "direct": true},
+    {"name": "家庭微软国内", "sets": ["microsoft@cn"], "direct": true},
+    {"name": "家庭微软云盘", "sets": ["onedrive"], "direct": true},
+    {"name": "家庭苹果其他", "sets": ["apple"], "direct": false},
+    {"name": "家庭微软其他", "sets": ["microsoft"], "direct": false}
+  ],
+  "privateCidrs": ["127.0.0.0/8", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "169.254.0.0/16", "100.64.0.0/10"],
+  "privateCidrs6": ["::1/128", "fc00::/7", "fe80::/10"],
+  "domesticDnsSets": ["cn", "apple-cn", "apple@cn", "microsoft@cn", "onedrive"],
+  "compatibilityDomains": ["*.lan", "*.local", "localhost", "localhost.ptlogin2.qq.com", "*.qq.com", "*.weixin.qq.com", "*.weixin.com", "*.wechat.com", "*.gtimg.com", "*.qpic.cn", "*.qlogo.cn", "*.servicewechat.com"]
+}

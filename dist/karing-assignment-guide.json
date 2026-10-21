@@ -1,0 +1,82 @@
+{
+  "note": "Mapping recipe, not a complete Karing backup. Apply through the app or adapt to its current data schema.",
+  "groups": [
+    {
+      "name": "家庭直连例外",
+      "action": "direct"
+    },
+    {
+      "name": "家庭AI",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭开发与Google",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭流媒体",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭社交",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭Google",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭Bing与Copilot",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭苹果国内",
+      "action": "direct"
+    },
+    {
+      "name": "家庭微软国内",
+      "action": "direct"
+    },
+    {
+      "name": "家庭微软云盘",
+      "action": "direct"
+    },
+    {
+      "name": "家庭苹果其他",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭微软其他",
+      "action": "currentSelected"
+    },
+    {
+      "name": "家庭国内直连",
+      "action": "direct"
+    },
+    {
+      "name": "家庭海外",
+      "action": "currentSelected"
+    }
+  ],
+  "final": "currentSelected",
+  "dns": {
+    "enable_rule": true,
+    "enable_client_subnet": false,
+    "proxy_resolve_mode": "fakeip",
+    "resolver_addresses": [
+      "https://223.5.5.5/dns-query"
+    ],
+    "outbound_addresses": [
+      "https://223.5.5.5/dns-query",
+      "https://doh.pub/dns-query"
+    ],
+    "direct_addresses": [
+      "https://223.5.5.5/dns-query",
+      "https://doh.pub/dns-query"
+    ],
+    "proxy_addresses": [
+      "https://1.1.1.1/dns-query",
+      "https://8.8.8.8/dns-query"
+    ]
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "items": [
+    {
+      "groupid": "custom",
+      "urlOrPath": "",
+      "remark": "家庭规则",
+      "editAble": true,
+      "groups": [
+        {
+          "groupid": "custom",
+          "name": "家庭直连例外",
+          "type": "",
+          "or": true,
+          "domain_suffix": [
+            "lan",
+            "local"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭AI",
+          "type": "",
+          "or": true,
+          "domain_suffix": [
+            "openai.com",
+            "chatgpt.com",
+            "oaistatic.com",
+            "oaiusercontent.com",
+            "anthropic.com",
+            "claude.ai",
+            "claude.com",
+            "x.ai",
+            "grok.com",
+            "gemini.google.com",
+            "generativelanguage.googleapis.com",
+            "ai.google.dev"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭开发与Google",
+          "type": "",
+          "or": true,
+          "domain_suffix": [
+            "google.com",
+            "googleapis.com",
+            "gstatic.com",
+            "googleusercontent.com",
+            "github.com",
+            "githubusercontent.com",
+            "githubassets.com"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭流媒体",
+          "type": "",
+          "or": true,
+          "domain_suffix": [
+            "youtube.com",
+            "youtu.be",
+            "googlevideo.com",
+            "ytimg.com",
+            "netflix.com",
+            "nflxvideo.net",
+            "nflximg.net",
+            "nflxso.net",
+            "disneyplus.com"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭社交",
+          "type": "",
+          "or": true,
+          "domain_suffix": [
+            "telegram.org",
+            "t.me",
+            "telegra.ph",
+            "telegram.me",
+            "whatsapp.com",
+            "whatsapp.net",
+            "signal.org",
+            "discord.com",
+            "discord.gg",
+            "discordapp.com",
+            "discordapp.net",
+            "x.com",
+            "twitter.com",
+            "twimg.com"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭Google",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:google",
+            "geosite:google-play"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭Bing与Copilot",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:bing"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭苹果国内",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:apple-cn",
+            "geosite:apple@cn"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭微软国内",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:microsoft@cn"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭微软云盘",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:onedrive"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭苹果其他",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:apple"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭微软其他",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:microsoft"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭国内直连",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:cn"
+          ]
+        },
+        {
+          "groupid": "custom",
+          "name": "家庭海外",
+          "type": "",
+          "or": true,
+          "rule_set_build_in": [
+            "geosite:geolocation-!cn"
+          ]
+        }
+      ]
+    }
+  ],
+  "rule_set_items": []
+}
