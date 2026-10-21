@@ -42,7 +42,8 @@ fs.writeFileSync(path.join(dist,'karing-assignment-guide.json'),JSON.stringify({
 const fake={proxies:[{name:'test-node',type:'socks5',server:'127.0.0.1',port:9}],
   'proxy-groups':['家庭代理','家庭AI','家庭流媒体','家庭社交'].map(name=>({name,type:'select',proxies:['test-node']})),rules:['MATCH,家庭代理']};
 const transformed=vm.runInNewContext(js.replace('// __EMBED_DNS__','')+'\nmain(input)',{input:fake},{timeout:1000});
-const stashRules=Array.from(transformed.rules).map(r=>r==='GEOSITE,apple-cn,DIRECT'?'RULE-SET,family-apple-cn,DIRECT':r);
+const wechatRules=policy.wechatCompatibilityDomains.map(d=>`DOMAIN-SUFFIX,${d},DIRECT`);
+const stashRules=[...wechatRules,...Array.from(transformed.rules).map(r=>r==='GEOSITE,apple-cn,DIRECT'?'RULE-SET,family-apple-cn,DIRECT':r)];
 const stashDns={'follow-rule':true,'skip-cert-verify':false,ipv6:false,
   'default-nameserver':[domestic],'proxy-server-nameserver':[domestic,'https://doh.pub/dns-query'],
   nameserver:dns.nameserver,'nameserver-policy':Object.fromEntries(policy.domesticDnsSets.map(s=>
@@ -52,10 +53,25 @@ const stashDns={'follow-rule':true,'skip-cert-verify':false,ipv6:false,
 const stashGroups=[{name:'家庭代理',type:'select','include-all':true,interval:600,lazy:true},
   ...['家庭AI','家庭流媒体','家庭社交'].map(name=>({name,type:'select',proxies:['家庭代理'],'include-all':true,interval:600,lazy:true}))];
 // JSON flow values are valid YAML; preserve Stash's replace directives explicitly.
-const stash=`name: "家庭分流与DNS ${policy.version}"\ndesc: "导入后先选择可用节点；需要 Stash iOS 3.6+，并下载首次使用的规则数据。"\nipv6: false\n`+
+const strict=`name: "家庭分流与DNS 严格版 ${policy.version}"\ndesc: "完整替换DNS与规则；需单独验证微信等应用兼容性。不要与兼容版同时启用。"\nipv6: false\n`+
   `dns: #!replace\n  ${JSON.stringify(stashDns)}\n`+
   `proxy-groups:\n  ${JSON.stringify(stashGroups)}\n`+
   `rule-providers:\n  ${JSON.stringify({'family-apple-cn':{behavior:'domain',format:'mrs',url:'https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs',interval:86400}})}\n`+
   `rules: #!replace\n  ${JSON.stringify(stashRules)}\n`;
-fs.writeFileSync(path.join(dist,'stash-family.stoverride'),stash);
-console.log('Built 6 credential-free policy adapters.');
+fs.writeFileSync(path.join(dist,'stash-family-strict.stoverride'),strict);
+// Compatibility default: leave the working subscription DNS, IPv6, Fake-IP filters,
+// country rules and final fallback intact. Unknown mini-program vendor domains
+// must continue to follow the user's original subscription, not our MATCH proxy.
+const compatibilityRules=['IP-CIDR,223.5.5.5/32,DIRECT,no-resolve',...wechatRules,...stashRules.slice(wechatRules.length).filter(r=>
+  r.startsWith('DOMAIN-SUFFIX,') || r.startsWith('GEOSITE,') &&
+    !['GEOSITE,cn,DIRECT','GEOSITE,apple,家庭代理','GEOSITE,microsoft,家庭代理'].includes(r) ||
+    r==='RULE-SET,family-apple-cn,DIRECT')];
+const compatibilityDns={'nameserver-policy':Object.fromEntries(policy.wechatCompatibilityDomains.map(d=>['+.'+d,[domestic]]))};
+const compatible=`name: "家庭分流 兼容版 ${policy.version}"\ndesc: "保留原DNS与兜底，仅前置服务分流及微信例外；请停用旧严格版后再启用。"\n`+
+  `dns:\n  ${JSON.stringify(compatibilityDns)}\n`+
+  `proxy-groups:\n  ${JSON.stringify(stashGroups)}\n`+
+  `rule-providers:\n  ${JSON.stringify({'family-apple-cn':{behavior:'domain',format:'mrs',url:'https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs',interval:86400}})}\n`+
+  `rules:\n  ${JSON.stringify(compatibilityRules)}\n`;
+fs.writeFileSync(path.join(dist,'stash-family-compat.stoverride'),compatible);
+fs.writeFileSync(path.join(dist,'stash-family.stoverride'),compatible);
+console.log('Built 8 credential-free policy adapters; Stash defaults to compatibility mode.');

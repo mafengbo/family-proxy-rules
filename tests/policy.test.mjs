@@ -54,11 +54,34 @@ test('personal exceptions remain optional and are absent from default exports',(
   assert.ok(!transform(fixture()).rules.some(r=>r.includes('private.example.com')));
 });
 test('Stash uses its own DNS syntax and a provider for Meta-only apple-cn',()=>{
-  const s=read('dist/stash-family.stoverride');
+  const s=read('dist/stash-family-strict.stoverride');
   assert.ok(s.includes('dns: #!replace')&&s.includes('rules: #!replace'));
   assert.ok(s.includes('"follow-rule":true')&&s.includes('"skip-cert-verify":false'));
   assert.ok(s.includes('RULE-SET,family-apple-cn,DIRECT'));
   assert.ok(!s.includes('GEOSITE,apple-cn,')&&!s.includes('respect-rules'));
+});
+test('default Stash overlay preserves original DNS and fallback for mini-program domains',()=>{
+  const text=read('dist/stash-family.stoverride');
+  assert.equal(text,read('dist/stash-family-compat.stoverride'));
+  assert.ok(!text.includes('#!replace')&&!text.includes('MATCH,')&&!text.includes('GEOSITE,cn,DIRECT'));
+  const values={};
+  for(const key of ['dns','rules']) {
+    const match=text.match(new RegExp('^'+key+':\\n  (.*)$','m'));
+    assert.ok(match);values[key]=JSON.parse(match[1]);
+  }
+  for(const key of ['nameserver','fallback','follow-rule','ipv6','fake-ip-filter','default-nameserver'])
+    assert.ok(!(key in values.dns));
+  assert.ok(values.rules.includes('DOMAIN-SUFFIX,servicewechat.com,DIRECT'));
+  assert.ok(!values.rules.some(r=>r.startsWith('IP-ASN,')));
+  // Model Stash's documented map merge + array-prepend semantics.
+  const originalDns={nameserver:['https://original.example.com/dns-query'],'fake-ip-filter':['+.merchant.example.com']};
+  const mergedDns={...originalDns,...values.dns};
+  assert.deepEqual(mergedDns.nameserver,originalDns.nameserver);
+  assert.deepEqual(mergedDns['fake-ip-filter'],originalDns['fake-ip-filter']);
+  const original=['DOMAIN-SUFFIX,merchant.example.com,DIRECT','MATCH,Original'];
+  const merged=[...values.rules,...original];
+  assert.equal(merged.find(r=>r.startsWith('DOMAIN-SUFFIX,merchant.example.com,')),original[0]);
+  assert.equal(merged.at(-1),'MATCH,Original');
 });
 test('Karing output has valid assignments and correct domestic-before-vendor ordering',()=>{
   const groups=JSON.parse(read('dist/karing-routing-groups.json')).items[0].groups;

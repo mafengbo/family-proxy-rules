@@ -1,6 +1,6 @@
 {
   "name": "family-proxy-rules",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Reusable split-routing and DNS policy adapters for FlClash, Karing and Stash",
   "scripts": {"build": "node scripts/build.mjs", "test": "node --test tests/*.test.mjs"},

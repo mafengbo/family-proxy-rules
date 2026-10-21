@@ -1,5 +1,6 @@
 {
   "version": "2026-10-21",
+  "wechatCompatibilityDomains": ["weixin.qq.com", "servicewechat.com", "wechat.com", "weixin.com", "wechatpay.com", "wechatpay.cn", "weixinbridge.com", "wechatos.net", "qpic.cn", "qlogo.cn", "wx.gtimg.com", "res.wx.qq.com", "wxcloudrun.com", "wxgateway.com"],
   "ai": ["openai.com", "chatgpt.com", "oaistatic.com", "oaiusercontent.com", "anthropic.com", "claude.ai", "claude.com", "x.ai", "grok.com", "gemini.google.com", "generativelanguage.googleapis.com", "ai.google.dev"],
   "development": ["google.com", "googleapis.com", "gstatic.com", "googleusercontent.com", "github.com", "githubusercontent.com", "githubassets.com"],
   "media": ["youtube.com", "youtu.be", "googlevideo.com", "ytimg.com", "netflix.com", "nflxvideo.net", "nflximg.net", "nflxso.net", "disneyplus.com"],
